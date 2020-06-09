@@ -99,6 +99,7 @@ class ServiceNowConnector {
   if (query) {
     uri = uri + '?' + query;
   }
+
   return uri;
 }
 
@@ -188,6 +189,7 @@ class ServiceNowConnector {
   else{
      
       uri = this.constructUri(callOptions.getCallOptions);
+      log.info ('URI IN post****************************'+uri)
   }
     
   /**
@@ -209,8 +211,19 @@ class ServiceNowConnector {
   this.processRequestResults(error, response, body, (processedResults, processedError) => callback(processedResults, processedError));
   });
 }
+ formateResponse(data) {
+    return {
+        'change_ticket_number': data.number,
+        'active': data.active,
+        'priority': data.priority,
+        'description': data.description,
+        'work_start': data.work_start,
+        'work_end': data.work_end,
+        'change_ticket_key': data.sys_id
+    } 
+
 
 
 }
-
+}
 module.exports = ServiceNowConnector;

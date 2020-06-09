@@ -186,19 +186,11 @@ healthcheck(callback) {
      * get() takes a callback function.
      */
      log.info('called getRecord >>>>>>>>>>>>>')
-      let resultdata = []
-        log.info('called getRecord')
-        let getCallOptions = { ...this.connector.options, method: 'GET', query: 'sysparm_limit=1' };
-        this.connector.sendRequest(getCallOptions, (results, error) => {
-            if (!error) {
-                let obj = JSON.parse(results.body)
-                obj.result.forEach(data => {
-                    resultdata.push(this.connector.formateResponse(data))
-                })
-            }
-            callback(resultdata, error)
-        })
-    }
+    let getCallOptions = { ...this.connector.options, method: 'GET', query: 'sysparm_limit=1' };
+      this.connector.sendRequest(getCallOptions, (results, error) => {
+              callback(results, error)
+        })   
+  }
 
   /**
    * @memberof ServiceNowAdapter
@@ -217,15 +209,10 @@ healthcheck(callback) {
      * post() takes a callback function.
      */
     log.info('called getRecord')
-     let getCallOptions = { ...this.connector.options, method: 'POST' };
-        let respondata = null
-        this.connector.sendRequest(getCallOptions, (results, error) => {
-            if (!error) {
-                let obj = JSON.parse(results.body)
-                respondata = this.connector.formateResponse(obj.result)
-            }
-            callback(respondata, error)
-        })
+    let getCallOptions = { ...this.connector.options, method: 'POST' };
+     this.connector.sendRequest(getCallOptions, (results, error) => {
+              callback(results, error)
+        })    
   }
 }
 
